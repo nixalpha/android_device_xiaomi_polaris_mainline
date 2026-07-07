@@ -1,0 +1,10 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+import /vendor/etc/init/hw/init.mi845.rc
+
+on fs
+    chmod 0644 /mnt/vendor/persist/audio/us_manual_cal
+    chmod 0644 /persist/audio/us_manual_cal

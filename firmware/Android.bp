@@ -1,0 +1,122 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+install_symlink {
+    name: "symlink_firmware_polaris",
+    vendor: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris",
+    symlink_target: "/odm/firmware/qcom/sdm845/Xiaomi/polaris",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_qca",
+    vendor: true,
+    installed_location: "firmware/qca/Xiaomi/polaris",
+    symlink_target: "/vendor/bt_firmware/image",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_cdsp.mbn",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/cdsp.mbn",
+    symlink_target: "/vendor/firmware_mnt/image/cdsp.mdt",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_mba.mbn",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/mba.mbn",
+    symlink_target: "/vendor/firmware_mnt/image/mba.mbn",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_modem.mbn",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/modem.mbn",
+    symlink_target: "/vendor/firmware_mnt/image/modem.mdt",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.mbn",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.mbn",
+    symlink_target: "/vendor/firmware_mnt/image/venus.mdt",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.b00",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.b00",
+    symlink_target: "/vendor/firmware_mnt/image/venus.b00",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.b01",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.b01",
+    symlink_target: "/vendor/firmware_mnt/image/venus.b01",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.b02",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.b02",
+    symlink_target: "/vendor/firmware_mnt/image/venus.b02",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.b03",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.b03",
+    symlink_target: "/vendor/firmware_mnt/image/venus.b03",
+}
+
+install_symlink {
+    name: "symlink_firmware_polaris_venus.b04",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/venus.b04",
+    symlink_target: "/vendor/firmware_mnt/image/venus.b04",
+}
+
+genrule {
+    name: "gen_firmware_polaris_ipa_fws.mbn",
+    tools: ["pil-squasher"],
+    out: ["ipa_fws.mbn"],
+    cmd: "$(location pil-squasher) $(out) ../../../../../vendor/xiaomi/sdm845-common/proprietary/vendor/firmware/ipa_fws.mdt",
+}
+
+prebuilt_firmware {
+    name: "firmware_polaris_ipa_fws.mbn",
+    src: ":gen_firmware_polaris_ipa_fws.mbn",
+    filename_from_src: true,
+    device_specific: true,
+    sub_dir: "qcom/sdm845/Xiaomi/polaris",
+}
+
+// Workaround soong installing device_specific prebuilt_firmware module to /odm/etc/firmware
+install_symlink {
+    name: "symlink_firmware_polaris_ipa_fws.mbn",
+    device_specific: true,
+    installed_location: "firmware/qcom/sdm845/Xiaomi/polaris/ipa_fws.mbn",
+    symlink_target: "/odm/etc/firmware/qcom/sdm845/Xiaomi/polaris/ipa_fws.mbn",
+}
+
+phony {
+    name: "all_symlink_firmware_polaris",
+    required: [
+        "symlink_firmware_polaris",
+        "symlink_firmware_polaris_cdsp.mbn",
+        "symlink_firmware_polaris_ipa_fws.mbn",
+        "symlink_firmware_polaris_mba.mbn",
+        "symlink_firmware_polaris_modem.mbn",
+        "symlink_firmware_polaris_qca",
+        "symlink_firmware_polaris_venus.b00",
+        "symlink_firmware_polaris_venus.b01",
+        "symlink_firmware_polaris_venus.b02",
+        "symlink_firmware_polaris_venus.b03",
+        "symlink_firmware_polaris_venus.b04",
+        "symlink_firmware_polaris_venus.mbn",
+    ],
+}
