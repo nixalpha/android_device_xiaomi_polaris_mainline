@@ -25,12 +25,8 @@ TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2160
 
 # Firmware
-PRODUCT_COPY_FILES += \
-    vendor/xiaomi/sdm845-common/proprietary/vendor/firmware/a630_zap.elf:$(TARGET_COPY_OUT_ODM)/firmware/qcom/sdm845/Xiaomi/polaris/a630_zap.mbn
-
 PRODUCT_PACKAGES += \
-    all_symlink_firmware_polaris \
-    firmware_polaris_ipa_fws.mbn
+    firmware_polaris_mainline
 
 # Init
 PRODUCT_PACKAGES += \
@@ -46,4 +42,5 @@ PRODUCT_COPY_FILES += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(DEVICE_PATH)
+    $(DEVICE_PATH) \
+    vendor/xiaomi/polaris_mainline
