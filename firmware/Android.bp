@@ -4,6 +4,14 @@
 //
 
 prebuilt_firmware {
+    name: "firmware_polaris_ath10k_WCN3990_hw1.0_board-2.bin",
+    src: "//vendor/xiaomi/polaris_mainline:polaris_mainline_ath10k_WCN3990_hw1.0_board-2.bin",
+    filename: "board-2.bin",
+    device_specific: true,
+    sub_dir: "ath10k/WCN3990/hw1.0",
+}
+
+prebuilt_firmware {
     name: "firmware_polaris_qcom_sdm845",
     srcs: [
         "//vendor/xiaomi/polaris_mainline:polaris_mainline_qcom_sdm845_firmware",
@@ -14,6 +22,13 @@ prebuilt_firmware {
 
 // prebuilt_firmware installs device_specific files to /odm/etc/firmware.
 // Mainline firmware lookup also needs /odm/firmware and /vendor/firmware paths.
+install_symlink {
+    name: "symlink_firmware_polaris_ath10k_WCN3990_hw1.0_odm",
+    device_specific: true,
+    installed_location: "firmware/ath10k/WCN3990/hw1.0",
+    symlink_target: "/odm/etc/firmware/ath10k/WCN3990/hw1.0",
+}
+
 install_symlink {
     name: "symlink_firmware_polaris_qcom_sdm845_odm",
     device_specific: true,
@@ -46,9 +61,11 @@ prebuilt_firmware {
 phony {
     name: "firmware_polaris_mainline",
     required: [
+        "firmware_polaris_ath10k_WCN3990_hw1.0_board-2.bin",
         "firmware_polaris_qca_polaris_crnv21.bin",
         "firmware_polaris_qcom_sdm845",
         "firmware_polaris_tas2559_uCDSP.bin",
+        "symlink_firmware_polaris_ath10k_WCN3990_hw1.0_odm",
         "symlink_firmware_polaris_qcom_sdm845_odm",
         "symlink_firmware_polaris_qcom_sdm845_vendor",
     ],
